@@ -10,6 +10,7 @@ alias k8s-b='ssh root@172.99.75.146 -i /home/luis7238/.ssh/luiscachog.io_rsa'
 
 
 ##### Commands #####
+alias reload!='. ~/.zshrc'
 #alias ls='exa'
 alias ll='ls -lFh'
 alias la='ls -lAFh'
@@ -41,7 +42,6 @@ alias duh='du -hc --max-depth=1'
 alias jobs='jobs -l'
 alias lsalias='less ~/.zsh_aliases'
 alias psa='ps ax |grep '
-complete -cf {sudo,man,which}
 
 alias update='sudo aptitude update && sudo aptitude upgrade -y'
 alias mountnas01='sudo mount -t nfs nas01:/mnt/HD/HD_a2/LuisCacho /mnt'

@@ -1,6 +1,30 @@
+##### Sourcing files #####
+PURE_POWER_MODE=fancy
 
-source ~/.zsh/powerlevel9k.zsh
+if [ -f ~/.zsh/powerlevel10k ]; then
+    [[ $TERM == xterm*  ]] || : ${PURE_POWER_MODE:=portable}
+    source  ~/.zsh/powerlevel10k
+else
+    print "404: ~/.zsh/powerlevel10k not found."
+fi
 
+if [ -f ~/.zsh/aliases/zsh_aliases ]; then
+    source ~/.zsh/aliases/zsh_aliases
+else
+    print "404: ~/.zsh/aliases/zsh_aliases not found."
+fi
+
+if [ -f ~/.zsh/aliases/rax_aliases ];then
+    source ~/.zsh/aliases/rax_aliases
+else
+    print "404: ~/.zsh/aliases/rax_aliases not found."
+fi
+
+if [ $TILIX_ID  ] || [ $VTE_VERSION  ]; then
+    source /etc/profile.d/vte.sh
+else
+    print "404: /etc/profile.d/vte.sh not found."
+fi
 export TERM="xterm-256color"
 tmux-new() {
   if [[ -n $TMUX ]]; then
@@ -129,7 +153,8 @@ EOBUNDLES
 antigen bundle zdharma/fast-syntax-highlighting
 
 # Load the theme.
-antigen theme bhilburn/powerlevel9k powerlevel9k
+#antigen theme bhilburn/powerlevel9k powerlevel9k
+antigen theme romkatv/powerlevel10k
 # antigen theme denysdovhan/spaceship-prompt
 # https://github.com/denysdovhan/spaceship-prompt
 
@@ -170,22 +195,6 @@ antigen apply
 
 
 
-##### Sourcing aditional files #####
-if [ -f ~/.zsh/aliases/zsh_aliases  ]; then
-    source ~/.zsh/aliases/zsh_aliases
-else
-    print "404: ~/.zsh/aliases/zsh_aliases not found."
-fi
-
-if [ -f ~/.zsh/aliases/rax_aliases ];then
-    source ~/.zsh/aliases/rax_aliases
-else
-    print "404: ~/.zsh/aliases/rax_aliases not found."
-fi
-
-if [ $TILIX_ID  ] || [ $VTE_VERSION  ]; then
-    source /etc/profile.d/vte.sh
-fi
 
 #if [ $commands[/usr/bin/kubectl]  ]; then
 source <(kubectl completion zsh)
@@ -194,6 +203,8 @@ source <(kubectl completion zsh)
 if [ $commands[minikube] ]; then
     source <(minikube completion zsh)
 fi
+
+complete -cf {sudo,man,which}    
 
 ##### Functions ##### 
 #man() {
