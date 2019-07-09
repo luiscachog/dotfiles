@@ -1,0 +1,5 @@
+export OS_USERNAME=$(op get item mycloud.rackspace.com | jq '.details.fields[] | select(.designation=="username").value' | tr -d '/"')
+export OS_PASSWORD=$(op get item mycloud.rackspace.com | jq '.details.fields[] | select(.designation=="password").value' | tr -d '/"')
+export OS_PROJECT_NAME=$(op get item mycloud.rackspace.com | jq '.details.sections[]  | select(.title=="") | .fields[] | select(.t=="account").v ' | tr -d '/"')
+export OS_AUTH_URL=https://identity.api.rackspacecloud.com/v2.0
+export OS_NO_CACHE=1

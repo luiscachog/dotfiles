@@ -1,0 +1,46 @@
+[user]
+    email = luiscachog@gmail.com 
+    name = Luis Cacho
+[push]
+    default = simple
+[alias]
+    st = status
+    ci = commit
+    co = checkout
+    br = branch
+    mr = merge
+    lg = "log --oneline --color --decorate --graph"
+    ps = push
+    re = "remote -v"
+
+    hist = log --color --pretty=format:\"%C(yellow)%h%C(reset) %s%C(bold red)%d%C(reset) %C(green)%ad%C(reset) %C(blue)[%an]%C(reset)\" --relative-date --decorate
+    unstage = reset HEAD --
+    restore = checkout --
+    cn = commit --no-verify
+    praise = blame
+    visualise = !gitk
+    graph = log --color --graph --pretty=format:\"%h | %ad | %an | %s%d\" --date=short
+[color]
+	ui = auto
+    status = auto
+    branch = auto
+    diff = never
+[credential]
+    helper = cache
+[core]
+    autocrlf = input
+    editor = vim 
+    safecrlf = true
+	pager = 
+
+
+[gitreview]
+	username = luiscachog
+[init]
+	templatedir = /home/luis7238/.git-templates
+[merge]
+	tool = code
+[status]
+	submoduleSummary = true
+[pager]
+	diff = false

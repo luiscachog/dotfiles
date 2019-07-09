@@ -1,0 +1,72 @@
+{
+  "hotkey": "alt+space",
+  "theme": "Eric-Jackson/zazu-clement-theme",
+  "displayOn": "detect",
+  "disableAnalytics": "True",
+  "plugins": [
+    "tinytacoteam/zazu-snippets",
+    "twang2218/zazu-tldr",
+    "blakek/zazu-emoj", 
+    "tinytacoteam/zazu-package-manager",
+    "danielbayerlein/zazu-github",
+    "halvves/zazu-giphy",
+    "iansinnott/zazu-emoji",
+    "jnstr/zazu-timetracker",
+    {
+      "name": "tinytacoteam/zazu-file-finder",
+      "variables": {
+          "append": true,
+          "directories": {
+              "filePath": [
+                  "~/Documents",
+                  "~/workspace"
+              ],
+              "appPath": [
+                  "/usr/games"
+              ],
+              "excludeName": [
+                  "node_modules"
+              ],
+              "excludePath": [
+                  "~/Library"
+              ]
+          }
+      }
+    },
+    {
+      "name": "tinytacoteam/zazu-calculator",
+      "variables": {
+        "OFFSET": 10
+      }
+    },
+    {
+      "name": "tinytacoteam/zazu-fallback",
+      "variables": {
+        "rootSearches": [
+          "stack",
+          "translate",
+          "duck",
+          "amazon"
+        ]
+      }
+    },
+    {
+      "name": "tinytacoteam/zazu-clipboard",
+      "variables": {
+        "ClipboardKey": "cmd+shift+z",
+        "size": 100,
+        "updateInterval": 1500
+      }
+    },
+    {
+      "name": "puyt/zazu-utime",
+      "variables": {
+        "timestampUnit": "seconds",
+        "timestampUnit": "{yyyy}/{MM}/{dd} {HH}:{mm}:{s}"
+      }
+    }    
+  ]
+}
+
+
+

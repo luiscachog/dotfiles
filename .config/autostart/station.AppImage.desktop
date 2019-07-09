@@ -1,0 +1,8 @@
+[Desktop Entry]
+Type=Application
+Version=1.0
+Name=station.AppImage
+Comment=station.AppImagestartup script
+Exec=/home/luis7238/Downloads/station.AppImage
+StartupNotify=false
+Terminal=false

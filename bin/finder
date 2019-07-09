@@ -1,0 +1,47 @@
+#!/usr/bin/env bash
+#
+# finder
+#   - Script to search a Racker or Huntgroup
+#
+# Changelog:
+#  * 2018-08-17 - Luis Cacho <luis.cacho@rackspace.com>
+#               - Initial version of script
+#
+
+NUM=30
+VERSION=0.3
+
+function usage() {
+cat << eof
+Usage:
+$(basename "${0}") [ -r RACKER ] [ -h HUNTGROUP ]
+eof
+}
+
+
+if [ $# -eq 0 ]; then
+    usage
+    echo "Try again, you need to specify a Racker"
+else
+    while getopts ":vir:h:" opt "$@"; do
+        case "${opt}" in
+            h)
+                SEARCH=${OPTARG}
+                elinks -dump -dump-width $(tput cols) "https://finder.rackspace.net/huntgroups?h=$SEARCH" | grep -B1 -A$NUM "Business" | grep -B$NUM -A0 "References"
+            ;;
+            r)
+                SEARCH=${OPTARG}
+                elinks -dump -dump-width $(tput cols) "https://finder.rackspace.net/mini.php?q=$SEARCH"
+            ;;
+            v)
+                echo $VERSION
+            ;;
+            \?)
+                usage
+            ;;                
+        esac
+    done
+    shift $((OPTIND-1))
+    SEARCH=${1}
+    elinks -dump -dump-width $(tput cols) "https://finder.rackspace.net/mini.php?q=$SEARCH"
+fi

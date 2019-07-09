@@ -1,0 +1,7 @@
+[Desktop Entry]
+Exec=blueproximity
+Name=blueproximity
+Terminal=false
+Type=Application
+StartupNotify=false
+X-GNOME-Autostart-enabled=false

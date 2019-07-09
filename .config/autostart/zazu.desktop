@@ -1,0 +1,9 @@
+[Desktop Entry]
+Type=Application
+Vestion=1.0
+Name=zazu
+Comment=zazu startup script
+Exec=/opt/Zazu/zazu
+StartupNotify=false
+Terminal=false
+X-GNOME-Autostart-Delay=2
