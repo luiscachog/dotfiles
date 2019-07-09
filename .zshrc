@@ -171,8 +171,16 @@ antigen apply
 
 
 ##### Sourcing aditional files #####
-if [ -f ~/.zsh_aliases  ]; then
-    source ~/.zsh_aliases
+if [ -f ~/.zsh/aliases/zsh_aliases  ]; then
+    source ~/.zsh/aliases/zsh_aliases
+else
+    print "404: ~/.zsh/aliases/zsh_aliases not found."
+fi
+
+if [ -f ~/.zsh/aliases/rax_aliases ];then
+    source ~/.zsh/aliases/rax_aliases
+else
+    print "404: ~/.zsh/aliases/rax_aliases not found."
 fi
 
 if [ $TILIX_ID  ] || [ $VTE_VERSION  ]; then
@@ -314,9 +322,4 @@ unset VIRTUAL_ENV_DISABLE_PROMPT
 #for config (~/.zsh/*.zsh) source $config
 for config (~/.zsh/*/*.zsh) source $config
 
-if [ -f ~/.zsh/rax_aliases ];then
-    source ~/.zsh/rax_aliases
-else
-    print "404: ~/.zsh/rax_aliases not found."
-fi
 
