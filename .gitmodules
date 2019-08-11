@@ -1,3 +1,6 @@
 [submodule "kubectx"]
 	path = kubectx
 	url = git@github.com:ahmetb/kubectx.git
+[submodule "tmux/.tmux/plugins/tpm"]
+	path = tmux/.tmux/plugins/tpm
+	url = https://github.com/tmux-plugins/tpm.git
