@@ -1,0 +1,12 @@
+{
+	"auths": {
+		"https://index.docker.io/v1/": {},
+		"quay.io": {},
+		"registry.ng.bluemix.net": {},
+		"us.icr.io": {}
+	},
+	"HttpHeaders": {
+		"User-Agent": "Docker-Client/18.09.6 (linux)"
+	},
+	"credsStore": "secretservice"
+}
