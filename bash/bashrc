@@ -239,3 +239,6 @@ fi
 unset __conda_setup
 # <<< conda init <<<
 alias ic="ibmcloud"
+
+# added by travis gem
+[ -f /home/luis7238/.travis/travis.sh ] && source /home/luis7238/.travis/travis.sh
