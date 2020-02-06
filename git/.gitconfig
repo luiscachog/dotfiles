@@ -41,9 +41,11 @@
 [gitreview]
 	username = luiscachog
 [init]
-	templatedir = /home/luis7238/.git-templates
+	templatedir = ~/.git-templates
 [merge]
 	tool = code
+[rebase]
+    autosquash = true
 [status]
 	submoduleSummary = true
 [pager]
