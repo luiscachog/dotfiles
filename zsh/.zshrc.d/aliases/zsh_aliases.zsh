@@ -1,42 +1,30 @@
 ##### Commands #####
-alias ls='exa --group-directories-first --classify --grid --header'
-alias l='exa --group-directories-first --classify'
-alias la='exa -a --group-directories-first --classify --grid'
-alias ll='exa -l --group-directories-first --classify'
-alias lla='exa -la --group-directories-first --classify --grid'
-alias lt='exa -T --group-directories-first --classify'
-alias lta='exa -T --long --group-directories-first --classify'
-alias ld='exa --group-directories-first --classify --header --long --list-dirs --group -d --accessed --modified --created --grid'
-alias lda='exa -a --group-directories-first --classify --header --long --list-dirs --group -d --accessed --modified --created --grid'
-alias lg='exa --long --git --header'
-alias lga='exa --long --git --header -a -a'
-
+alias c='clear'
 alias cp='cp -i'
-alias mv='mv -i'
-alias rm='rm -I'
-# http://zsh.sourceforge.net/Doc/Release/Options.html#index-RMSTARSILENT
-setopt rmstarsilent
+alias dmesg='dmesg -HL'
+alias egrep='egrep --color=auto'
+alias grep='grep --color=auto'
+alias h='history'
+alias jobs='jobs -l'
 alias ln='ln -i'
 alias mkdir='mkdir -p'
+alias mv='mv -i'
+alias rm='rm -i'
 alias rd='rmdir'
 
 
-alias c='clear'
-alias h='history'
-alias grep='grep --color=auto'
-alias egrep='egrep --color=auto'
-alias jobs='jobs -l'
-alias dmesg='dmesg -HL'
 
-alias copys="tr -d '\n' | pbcopy"                          # Trim new lines and copy to clipboard
+# http://zsh.sourceforge.net/Doc/Release/Options.html#index-RMSTARSILENT
+setopt rmstarsilent
+
+
+
 alias cleands="find . -type f -name '*.DS_Store' -ls -delete"  # Recursively delete `.DS_Store` file
+alias copys="tr -d '\n' | pbcopy"                          # Trim new lines and copy to clipboard
 alias pastebin='pastebinit -a k4ch0'
 
 
 
-
-
-alias acme.sh=~/.acme.sh/acme.sh
 
 
 alias h='function hdi(){ howdoi $* -c -n 5;  }; hdi'

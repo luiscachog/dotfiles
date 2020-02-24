@@ -10,7 +10,7 @@ fi
 export PATH="/usr/local/opt/python/libexec/bin:/usr/local/sbin:/usr/local/opt/ncurses/bin:$PATH"
 
 # Path to my own config files.
-export MY_ZSH="$HOME/.zshrc.d"
+export ZSH_CUSTOM="$HOME/.zshrc.d"
 
 # Path to your oh-my-zsh installation.
 export ZSH="$HOME/.zsh/.oh-my-zsh"
@@ -111,17 +111,23 @@ source $ZSH/oh-my-zsh.sh
 # alias ohmyzsh="mate ~/.oh-my-zsh"
 #
 
+# To customize prompt, choose a theme config file:
+[[ ! -f $ZSH_CUSTOM/themes/p10k.zsh ]] || source $ZSH_CUSTOM/themes/p10k.zsh
+
 # load all aliases files from .zshrc.d/aliases directory
-if [ -d $MY_ZSH/aliases ]; then
-  for file in $MY_ZSH/aliases/*.zsh; do
+if [ -d $ZSH_CUSTOM/aliases ]; then
+  for file in $ZSH_CUSTOM/aliases/*.zsh; do
     source $file
   done
 fi
 
-# To customize prompt, run `p10k configure` or edit ~/.p10k.zsh.
-[[ ! -f $MY_ZSH/themes/p10k.zsh ]] || source $MY_ZSH/themes/p10k.zsh
+# load all plugins files from .zshrc.d/plugins directory
+if [ -d $ZSH_CUSTOM/plugins ]; then
+  for file in $ZSH_CUSTOM/plugins/*.zsh; do
+    source $file
+  done
+fi
 
 # To source virtualenvwrapper
 [[ ! -f /usr/local/bin/virtualenvwrapper.sh ]] || source /usr/local/bin/virtualenvwrapper.sh
 
-[ -f ~/.fzf.zsh ] && source ~/.fzf.zsh
