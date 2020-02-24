@@ -1,0 +1,21 @@
+
+gitsetoriginnopush() {
+	git remote set-url --push origin no_push
+}
+
+gitremovesubmodule(){
+    if [ -z "${1}"   ]; then
+        echo "ERROR: No submodule specified."
+        echo "Available submodules are:"
+        git submodule status | awk '{print $2}'
+        return 1
+    fi
+    
+    echo -e "Before: \n $(git submodule status | awk '{print $2}') \n"
+    git submodule deinit -f -- "${1}"
+    rm -rf .git/modules/"${1}"
+    git rm -f "${1}"
+    # Note: a/submodule (no trailing slash)
+    echo -e "After: \n $(git submodule status | awk '{print $2}') \n"
+}
+
