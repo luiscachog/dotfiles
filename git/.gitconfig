@@ -5,9 +5,21 @@
 [includeIf "gitdir:~/workspace/repos/rax/"]
     path = ~/.gitconfig-rax
 
+[core]
+    autocrlf = input
+    editor = vim 
+    safecrlf = true
+    pager = diff-so-fancy | less --tabs=4 -RFX
+	  excludesfile = ~/.gitignore_global
+	  whitespace = fix,-indent-with-non-tab,trailing-space,cr-at-eol
+    compression = 9
+
 [push]
     default = simple
+
 [alias]
+    # Show all of my configured aliases
+    aliases = !git config --list | grep 'alias\\.' | sed 's/alias\\.\\([^=]*\\)=\\(.*\\)/\\1\\ \t => \\2/' | sort
     st = status
     ci = commit
     co = checkout
@@ -24,46 +36,124 @@
     praise = blame
     visualise = !gitk
     graph = log --color --graph --pretty=format:\"%h | %ad | %an | %s%d\" --date=short
+    all = add . --all
+    amend = !git log -n 1 --pretty=tformat:%s%n%n%b | git commit -F - --amend
+    bra = branch -av
+    # Show the current branch name (usefull for shell prompts)
+    brname = !git branch | grep "^*" | awk '{ print $2 }'
+    brdel = branch -D
+    changes = "!f() { git log --pretty=format:'* %s' $1..$2; }; f"
+
+    # Which files are receiving the most "love"
+    churn = !git log --all -M -C --name-only --format='format:' "$@" | sort | grep -v '^$' | uniq -c | sort | awk 'BEGIN {print "count,file"} {print $1 "," $2}'
+
+    # View the log and diff for a commit (previous if no SHA1 provided)
+    details = log -n1 -p --format=fuller
+
+    # Save a repo as a tarball
+    export = archive -o latest.tar.gz -9 --prefix=latest/
+
+    # Unstage changes from the index
+    unstage = reset HEAD --
+
+    # View a pretty git log with branch tree
+    g = !git log --graph --pretty=format:'%Cred%h%Creset -%C(yellow)%d%Creset %s %Cgreen(%cr) %C(bold blue)<%an>%Creset' --abbrev-commit --date=relative
+
+    # Return a list of commit SHA1s
+    l = "!f() { git log $* | grep '^commit ' | cut -f 2 -d ' '; }; f"
+
+    # Remove deleted files
+    r = !git ls-files -z --deleted | xargs -0 git rm
+
+    # Return the repository's root directory (usefull for shell prompts)
+    root = rev-parse --show-toplevel
+
+    # Update all submodules
+    subup = submodule update --init
+    
+    # List all tags
+    tags = tag -l
+
+    # Start a new local repository and perform initial commit
+    this = !git init && git add . && git commmit -m \"Initial commit.\"
+
+    # Thin out older metadata within the repository, reduceses filesystem footprint
+    trim = !git reflog expire --expire=now --all && git gc --prune=now
+
 [color]
-	ui = true
-    status = auto
-    branch = auto
-    diff = never
-[credential]
-    helper = cache
-[core]
-    autocrlf = input
-    editor = vim 
-    safecrlf = true
-	pager = diff-so-fancy | less --tabs=4 -RFX
+    ui = true
 
+[color "branch"]
+    current = yellow reverse
+    local = yellow
+    remote = green
 
-[gitreview]
-	username = luiscachog
-[init]
-	templatedir = ~/.git-templates
-[merge]
-	tool = code
-[rebase]
-    autosquash = true
-[status]
-	submoduleSummary = true
-[pager]
-	diff = true
+[color "diff"]
+    meta = yellow bold
+	  meta = 11
+	  commit = yellow bold
+    frag = magenta bold
+    old = red bold
+    new = green bold
+    whitespace = red reverse
+
+[color "status"]
+    added = yellow
+    changed = green
+    untracked = red
+
 [color "diff-highlight"]
 	oldNormal = red bold
 	oldHighlight = red bold 52
 	newNormal = green bold
 	newHighlight = green bold 22
-[color "diff"]
-	meta = 11
-	frag = magenta bold
-	commit = yellow bold
-	old = red bold
-	new = green bold
-	whitespace = red reverse
+
+[credential]
+    helper = cache
+
+[gitreview]
+	  username = luiscachog
+
+[init]
+	  templatedir = ~/.git-templates
+
+[merge]
+    log = true
+    ff = false
+	  tool = code
+
+[rebase]
+    autosquash = true
+    instructionFormat = %s [%an] # add the commit author to the end of each line 
+
+[status]
+	submoduleSummary = true
+
+[pager]
+	diff = true
+
 [filter "lfs"]
 	clean = git-lfs clean -- %f
 	smudge = git-lfs smudge -- %f
 	process = git-lfs filter-process
 	required = true
+
+[difftool "sourcetree"]
+	cmd = opendiff \"$LOCAL\" \"$REMOTE\"
+	path = 
+
+[mergetool "sourcetree"]
+	cmd = /Applications/Sourcetree.app/Contents/Resources/opendiff-w.sh \"$LOCAL\" \"$REMOTE\" -ancestor \"$BASE\" -merge \"$MERGED\"
+	trustExitCode = true
+
+[url "https://github.com/"]
+  insteadOf = gh:
+
+[url "https://gist.github.com/"]
+  insteadOf = gist:
+
+[url "https://gitlab.com/"]
+  insteadOf = gl:
+
+[url "https://bitbucket.org/"]
+  insteadOf = bb:
