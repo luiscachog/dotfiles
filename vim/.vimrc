@@ -24,12 +24,13 @@
         endif
     """ }}}
     """ Initialize Vundle {{{
+        filetype on                                 " filetype must be 'on' before setting it 'off' otherwise it exits with a bad status and breaks git commit.
         filetype off                                " required to init
         set rtp+=$HOME/.vim/bundle/Vundle.vim       " include vundle
         call vundle#begin()                         " init vundle
     """ }}}
     """ Github repos, uncomment to disable a plugin {{{
-        Plugin 'gmarik/Vundle.vim'
+        Plugin 'VundleVim/Vundle.vim'
 
         """ Local plugins (and only plugins in this file!) {{{
             if filereadable($HOME."/.vimrc.plugins")
@@ -54,8 +55,16 @@
         Plugin 'nanotech/jellybeans.vim'
 
         " Super easy commenting, toggle comments etc
-        Plugin 'scrooloose/nerdcommenter'
+        Plugin 'preservim/nerdcommenter'
 
+        " Nerd-Tree
+        Plugin 'preservim/nerdtree'
+        Plugin 'Xuyuanp/nerdtree-git-plugin'
+
+        " fzf
+        Plugin 'junegunn/fzf'
+        Plugin 'junegunn/fzf.vim'
+        
         " Autoclose (, " etc
         Plugin 'somini/vim-autoclose'
 
@@ -90,6 +99,9 @@
 
         " Ansible + yaml + vim
         Plugin 'chase/vim-ansible-yaml'
+
+        " markdown
+        Plugin 'tpope/vim-markdown'
 
         Plugin 'vim-airline/vim-airline'
         Plugin 'vim-airline/vim-airline-themes'
@@ -147,6 +159,8 @@
         set more                                    " ---more--- like less
         set number                                  " line numbers
         set scrolloff=3                             " lines above/below cursor
+        set sidescrolloff=7                         " Start scrolling n chars before end of screen.
+        set sidescroll=1                            " The minimal number of columns to scroll horizontally.
         set showcmd                                 " show cmds being typed
         set title                                   " window title
         set titleold=                               " Don't set the title to  'Thanks for flying Vim' when exiting
@@ -172,6 +186,7 @@
     set laststatus=2                                " always show statusline
     set linebreak                                   " don't cut words on wrap
     set listchars=tab:>\                            " > to highlight <tab>
+    set fillchars=fold:-                            "
     set list                                        " displaying listchars
     set mouse=                                      " disable mouse
     set noshowmode                                  " hide mode cmd line
@@ -195,7 +210,10 @@
     """ }}}
     """ Search and replace {{{
         set gdefault                                " default s//g (global)
+        set magic                                   " Enable extended regexes
+        set hlsearch                                " highlight searches
         set incsearch                               " "live"-search
+        set ignorecase smartcase                    " make searches case-insensitive, unless they contain upper-case letters
     """ }}}
     """ Matching {{{
         set matchtime=2                             " time to blink match {}
@@ -207,6 +225,7 @@
         set wildignore+=*.a,*.o,*.so,*.pyc,*.class
         set wildignore+=*.jpg,*.jpeg,*.gif,*.png,*.pdf
         set wildignore+=*/.git*,*.tar,*.zip
+        set wildignore+=*.DS_STORE,*.db
         set wildmenu
         set wildmode=longest:full,list:full
     """ }}}
@@ -251,18 +270,22 @@
     """ }}}
 """ }}}
 """ Text formatting {{{
-    set autoindent                                  " preserve indentation
+    set autoindent smartindent                      " preserve indentation
+    set copyindent                                  " copy previous indentation on auto indent
     set backspace=indent,eol,start                  " smart backspace
+    set esckeys                                     " Allow cursor keys in insert mode.
+    set timeoutlen=500                              " how long it wait for mapped commands
+    set ttimeoutlen=100                             " faster timeout for escape key and others
     set cinkeys-=0#                                 " don't force # indentation
     set expandtab                                   " no real tabs
     set ignorecase                                  " by default ignore case
     set nrformats+=alpha                            " incr/decr letters C-a/-x
     set shiftround                                  " be clever with tabs
-    set shiftwidth=4                                " default 8
+    set shiftwidth=2                                " The # of spaces for indenting (default 8)
     set smartcase                                   " sensitive with uppercase
     set smarttab                                    " tab to 0,4,8 etc.
-    set softtabstop=4                               " "tab" feels like <tab>
-    set tabstop=4                                   " replace <TAB> w/4 spaces
+    set softtabstop=2                               " "tab" feels like <tab>
+    set tabstop=2                                   " replace <TAB> w/2 spaces
     """ Only auto-comment newline for block comments {{{
         augroup AutoBlockComment
             autocmd! FileType c,cpp setlocal comments -=:// comments +=f://
@@ -324,6 +347,10 @@
 
         " Highlight last inserted text
         nnoremap gV '[V']
+
+        map <C-n> :NERDTreeToggle<CR>
+        nmap <C-n> :NERDTreeToggle<CR>
+        vmap <C-n> :NERDTreeToggle<CR>
     """ }}}
     """ Functions and/or fancy keybinds {{{
         """ Toggle syntax highlighting {{{
@@ -660,8 +687,28 @@
                 \" autocmd BufWritePost <buffer> :call s:syntastic()"
         augroup END
     """ }}}
+    """ NERDTree {{{
+      let NERDTreeIgnore=['.DS_Store']
+      let NERDTreeShowBookmarks=0         "show bookmarks on startup
+      let NERDTreeShowHidden=1
+      let NERDTreeHighlightCursorline=1   "Highlight the selected entry in the tree
+      let NERDTreeShowLineNumbers=0
+      let NERDTreeMinimalUI=1
+      let g:NERDTreeDirArrowExpandable = '▸'
+      let g:NERDTreeDirArrowCollapsible = '▾'
+      noremap <leader>nt :NERDTreeToggle<CR>
+      autocmd bufenter * if (winnr("$") == 1 && exists("b:NERDTree") && b:NERDTree.isTabTree()) | q | endif
+    """ }}}
+    """ NERDCommenter {{{
+      let NERDSpaceDelims=1               " space around delimiters
+      let NERDRemoveExtraSpaces=1
+      let g:NERDCustomDelimiters = {
+        \ 'scss': { 'left': '//' }
+      \ }
+    """ }}}
 """ }}}
 """ Local ending config, will overwrite anything above. Generally use this. {{{
+    set buftype=""
     if filereadable($HOME."/.vimrc.last")
         source $HOME/.vimrc.last
     endif
