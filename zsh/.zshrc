@@ -80,7 +80,7 @@ ZSH_THEME="powerlevel10k/powerlevel10k"
 # Custom plugins may be added to ~/.oh-my-zsh/custom/plugins/
 # Example format: plugins=(rails git textmate ruby lighthouse)
 # Add wisely, as too many plugins slow down shell startup.
-plugins=(git)
+plugins=(git colored-man-pages colorize pip python brew osx zsh-syntax-highlighting zsh-autosuggestions)
 
 source $ZSH/oh-my-zsh.sh
 
@@ -113,6 +113,13 @@ source $ZSH/oh-my-zsh.sh
 
 # To customize prompt, choose a theme config file:
 [[ ! -f $ZSH_CUSTOM/themes/p10k.zsh ]] || source $ZSH_CUSTOM/themes/p10k.zsh
+
+# load all aliases files from .zshrc.d/aliases directory
+if [ -d $ZSH_CUSTOM/config ]; then
+  for file in $ZSH_CUSTOM/config/*.zsh; do
+    source $file
+  done
+fi
 
 # load all aliases files from .zshrc.d/aliases directory
 if [ -d $ZSH_CUSTOM/aliases ]; then
