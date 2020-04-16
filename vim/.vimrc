@@ -105,6 +105,8 @@
 
         Plugin 'vim-airline/vim-airline'
         Plugin 'vim-airline/vim-airline-themes'
+
+        Plugin 'dracula/vim', { 'name': 'dracula' }
     """ }}}
     """ Finish Vundle stuff {{{
         call vundle#end()
@@ -126,7 +128,7 @@
         filetype plugin indent on                   " detect file plugin+indent
         syntax on                                   " syntax highlighting
         set background=dark                         " we're using a dark bg
-        colorscheme jellybeans                      " colorscheme from plugin
+        colorscheme dracula                         " colorscheme from plugin
         let g:jellybeans_use_lowcolor_black = 0
         """ Force behavior and filetypes, and by extension highlighting {{{
             augroup FileTypeRules
@@ -537,7 +539,7 @@
     """ }}}
     """ Lightline {{{
         let g:lightline = {
-            \ 'colorscheme': 'jellybeans',
+            \ 'colorscheme': 'dracula',
             \ 'active': {
             \     'left': [
             \         ['mode', 'paste'],
