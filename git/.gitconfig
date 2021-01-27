@@ -1,7 +1,9 @@
 [user]
-	email = luiscachog@gmail.com
-	name = Luis Cacho
+    email = luiscachog@gmail.com
+    name = Luis Cacho
 
+[includeIf "gitdir:~/workspace/repos/rh/"]
+    path = ~/.gitconfig-rh
 [includeIf "gitdir:~/workspace/repos/rax/"]
     path = ~/.gitconfig-rax
 
@@ -10,9 +12,9 @@
     editor = vim 
     safecrlf = true
     pager = diff-so-fancy | less --tabs=4 -RFX
-	excludesfile = /Users/luis7238/.gitignore_global
-	  whitespace = fix,-indent-with-non-tab,trailing-space,cr-at-eol
-	compression = 9
+    excludesfile = ~/.gitignore_global
+    whitespace = fix,-indent-with-non-tab,trailing-space,cr-at-eol
+    compression = 9
 
 [push]
     default = simple
@@ -310,7 +312,7 @@
 
     # from http://andrewberls.com/blog/post/git-tricks-unstaging-files
     # unstage a particular file
-	unstage = reset --
+    unstage = reset --
 
     # Show latest tag
     # From https://github.com/GitAlias/gitalias/blob/master/gitalias.txt
@@ -354,8 +356,8 @@
 
 [color "diff"]
     meta = yellow bold
-	  meta = 11
-	  commit = yellow bold
+    meta = 11
+    commit = yellow bold
     frag = magenta bold
     old = red bold
     new = green bold
@@ -367,34 +369,34 @@
     untracked = red
 
 [color "diff-highlight"]
-	oldNormal = red bold
-	oldHighlight = red bold 52
-	newNormal = green bold
-	newHighlight = green bold 22
+    oldNormal = red bold
+    oldHighlight = red bold 52
+    newNormal = green bold
+    newHighlight = green bold 22
 
 [credential]
     helper = cache
 
 [gitreview]
-	  username = luiscachog
+    username = luiscachog
 
 [init]
-	  templatedir = ~/.git-templates
+    templatedir = ~/.git-templates
 
 [merge]
     log = true
     #ff = false
-	  tool = code
+    tool = code
 
 [rebase]
     autosquash = true
     instructionFormat = %s [%an] # add the commit author to the end of each line 
 
 [status]
-	submoduleSummary = true
+    submoduleSummary = true
 
 [pager]
-	diff = true
+    diff = true
 
 [filter "lfs"]
     clean = git-lfs clean -- %f
@@ -403,39 +405,45 @@
     required = true
 
 [difftool "sourcetree"]
-	cmd = opendiff \"$LOCAL\" \"$REMOTE\"
-	path = 
+    cmd = opendiff \"$LOCAL\" \"$REMOTE\"
+    path = 
 
 [mergetool "sourcetree"]
-	cmd = /Applications/Sourcetree.app/Contents/Resources/opendiff-w.sh \"$LOCAL\" \"$REMOTE\" -ancestor \"$BASE\" -merge \"$MERGED\"
-	trustExitCode = true
+    cmd = /Applications/Sourcetree.app/Contents/Resources/opendiff-w.sh \"$LOCAL\" \"$REMOTE\" -ancestor \"$BASE\" -merge \"$MERGED\"
+    trustExitCode = true
   #cmd = /Applications/Sourcetree.app/Contents/Resources/opendiff-w.sh \"$LOCAL\" \"$REMOTE\" -ancestor \"$BASE\" -merge \"$MERGED\"
   #trustExitCode = true
 
 [url "https://github.com/"]
-  insteadOf = gh:
+    insteadOf = gh:
 
 [url "https://gist.github.com/"]
-  insteadOf = gist:
+    insteadOf = gist:
 
 [url "https://gitlab.com/"]
-  insteadOf = gl:
+    insteadOf = gl:
 
 [url "https://bitbucket.org/"]
-  insteadOf = bb:
+    insteadOf = bb:
+
 [filter "spacify"]
-	clean = expand --tabs=4 --initial
-	smudge = expand --tabs=4 --initial
+    clean = expand --tabs=4 --initial
+    smudge = expand --tabs=4 --initial
+
 [ssh]
-	postBuffer = 2048M
-	maxRequestBuffer = 1024M
+    postBuffer = 2048M
+    maxRequestBuffer = 1024M
+
 [http]
-	postBuffer = 2048M
-	maxRequestBuffer = 1024M
+    postBuffer = 2048M
+    maxRequestBuffer = 1024M
+
 [https]
-	postBuffer = 1048576000
+    postBuffer = 1048576000
+
 [commit]
-	template = /Users/luis7238/.stCommitMsg
+    template = ~/luis7238/.stCommitMsg
+
 [pack]
-	windowMemory = 256m
-	packSizeLimit = 256m
+    windowMemory = 256m
+    packSizeLimit = 256m
