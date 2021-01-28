@@ -242,3 +242,5 @@ alias ic="ibmcloud"
 
 # added by travis gem
 [ -f /home/luis7238/.travis/travis.sh ] && source /home/luis7238/.travis/travis.sh
+
+[ -f ~/.fzf.bash ] && source ~/.fzf.bash
