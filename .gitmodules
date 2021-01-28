@@ -10,3 +10,12 @@
 [submodule "zsh/.zshrc.d/themes/powerlevel10k"]
 	path = zsh/.zshrc.d/themes/powerlevel10k
 	url = https://github.com/romkatv/powerlevel10k.git
+[submodule "zsh/.zshrc.d/plugins/zsh-completions"]
+	path = zsh/.zshrc.d/plugins/zsh-completions
+	url = https://github.com/zsh-users/zsh-completions.git
+[submodule "zsh/.zshrc.d/plugins/zsh-syntax-highlighting"]
+	path = zsh/.zshrc.d/plugins/zsh-syntax-highlighting
+	url = https://github.com/zsh-users/zsh-syntax-highlighting.git
+[submodule "zsh/.zshrc.d/plugins/zsh-autosuggestions"]
+	path = zsh/.zshrc.d/plugins/zsh-autosuggestions
+	url = https://github.com/zsh-users/zsh-autosuggestions

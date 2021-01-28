@@ -9,7 +9,7 @@ HISTFILE=~/.zsh_history
 # Command execution time stamp shown in the history command output.
 HIST_STAMPS="yyyy-mm-dd"
 
-setopt histignorealldups sharehistory                                                                                                                                                                                  
+setopt histignorealldups sharehistory
 setopt autocd                   # Allow changing directories without `cd`
 setopt append_history           # Dont overwrite history
 setopt extended_history         # Also record time and duration of commands.
@@ -19,14 +19,19 @@ setopt hist_find_no_dups        # Dont display duplicates during searches.
 setopt hist_ignore_dups         # Ignore consecutive duplicates.
 setopt hist_ignore_all_dups     # Remember only one unique copy of the command.
 setopt hist_reduce_blanks       # Remove superfluous blanks.
-setopt hist_save_no_dups        # Omit older commands in favor of newer ones.                                                                                                                                          
+setopt hist_save_no_dups        # Omit older commands in favor of newer ones.
 setopt hist_ignore_space        # Ignore commands that start with space.
 
 ##### PATHS #####
 #export MANPATH=/usr/local/man:$MANPATH
 
 ##### TEXT EDITOR #####
-export EDITOR=vim
+if [[ -n $SSH_CONNECTION ]]; then
+    export EDITOR='vim'
+else
+  export EDITOR='mvim'
+fi
+
 export VISUAL=code
 
 ##### LANGUAGE #####
@@ -48,5 +53,3 @@ export _JAVA_AWT_WM_NONREPARENTING=1
 
 ##█▓▒░ no mosh titles
 export MOSH_TITLE_NOPREFIX=1
-
-

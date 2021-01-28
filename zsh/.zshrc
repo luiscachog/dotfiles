@@ -7,7 +7,7 @@ fi
 
 # If you come from bash you might have to change your $PATH.
 # export PATH=$HOME/bin:/usr/local/bin:$PATH
-export PATH="/usr/local/opt/python/libexec/bin:/usr/local/sbin:/usr/local/opt/ncurses/bin:$PATH"
+export PATH="/usr/local/opt/python/libexec/bin:/usr/local/sbin:/usr/local/bin:/usr/local/opt/ncurses/bin:/usr/local/opt/ruby/bin:$PATH"
 
 # Path to my own config files.
 export ZSH_CUSTOM="$HOME/.zshrc.d"
@@ -114,7 +114,7 @@ source $ZSH/oh-my-zsh.sh
 # To customize prompt, choose a theme config file:
 [[ ! -f $ZSH_CUSTOM/themes/p10k.zsh ]] || source $ZSH_CUSTOM/themes/p10k.zsh
 
-# load all aliases files from .zshrc.d/aliases directory
+# load all config files from .zshrc.d/config directory
 if [ -d $ZSH_CUSTOM/config ]; then
   for file in $ZSH_CUSTOM/config/*.zsh; do
     source $file
@@ -137,4 +137,14 @@ fi
 
 # To source virtualenvwrapper
 [[ ! -f /usr/local/bin/virtualenvwrapper.sh ]] || source /usr/local/bin/virtualenvwrapper.sh
+
+
+test -e "${HOME}/.iterm2_shell_integration.zsh" && source "${HOME}/.iterm2_shell_integration.zsh"
+
+#source $(dirname $(gem which colorls))/tab_complete.sh
+
+#eval "$(rbenv init -)"
+
+#export PATH="$HOME/.jenv/bin:$PATH"
+#  eval "$(jenv init -)"
 
