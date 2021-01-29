@@ -19,3 +19,6 @@
 [submodule "zsh/.zshrc.d/plugins/zsh-autosuggestions"]
 	path = zsh/.zshrc.d/plugins/zsh-autosuggestions
 	url = https://github.com/zsh-users/zsh-autosuggestions
+[submodule "zsh/.zshrc.d/plugins/you-should-use"]
+	path = zsh/.zshrc.d/plugins/you-should-use
+	url = https://github.com/MichaelAquilina/zsh-you-should-use.git

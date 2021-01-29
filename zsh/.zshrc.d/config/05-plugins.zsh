@@ -1,0 +1,8 @@
+
+# zsh-autosuggest
+ZSH_AUTOSUGGEST_HIGHLIGHT_STYLE="fg=241" # gray highlight
+ZSH_AUTOSUGGEST_STRATEGY="history"
+ZSH_AUTOSUGGEST_BUFFER_MAX_SIZE=15
+
+# zsh-you-should-use
+YSU_MESSAGE_POSITION="after"
