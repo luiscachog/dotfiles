@@ -139,6 +139,21 @@ fi
 [[ ! -f /usr/local/bin/virtualenvwrapper.sh ]] || source /usr/local/bin/virtualenvwrapper.sh
 
 
+# Using pyenv
+if command -v pyenv 1>/dev/null 2>&1 ; then
+  eval "$(pyenv init -)"
+  export PATH=$(pyenv root)/bin:$PATH
+  export PYENV_VIRTUALENV_DISABLE_PROMPT=1
+fi
+
+# Using virtualenv via pyenv
+if [ -d ~/.virtualenvs  ]; then
+  export PYENV_VIRTUALENVWRAPPER_PREFER_PYVENV="true"
+  export WORKON_HOME=$HOME/.virtualenvs
+  pyenv virtualenvwrapper_lazy
+fi
+
+
 test -e "${HOME}/.iterm2_shell_integration.zsh" && source "${HOME}/.iterm2_shell_integration.zsh"
 
 #source $(dirname $(gem which colorls))/tab_complete.sh
