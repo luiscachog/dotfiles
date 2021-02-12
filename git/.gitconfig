@@ -3,16 +3,16 @@
     name = Luis Cacho
 
 [includeIf "gitdir:~/workspace/repos/rh/"]
-    path = ~/.gitconfig-rh
+    path = ~/.git.d/gitconfig-rh
 [includeIf "gitdir:~/workspace/repos/rax/"]
-    path = ~/.gitconfig-rax
+    path = ~/.git.d/gitconfig-rax
 
 [core]
     autocrlf = input
     editor = vim 
     safecrlf = true
     pager = diff-so-fancy | less --tabs=4 -RFX
-    excludesfile = ~/.gitignore_global
+    excludesfile = ~/.git.d/gitignore
     whitespace = fix,-indent-with-non-tab,trailing-space,cr-at-eol
     compression = 9
 
@@ -325,7 +325,7 @@
 
 # local user config, usernames, etc
 [include]
-    path = ~/.gitconfig-local
+    path = ~/.git.d/gitconfig-local
 
 # Misc notes
 # show a specifc version of a file
@@ -381,7 +381,7 @@
     username = luiscachog
 
 [init]
-    templatedir = ~/.git-templates
+    templatedir = ~/.git.d/git-template
 
 [merge]
     log = true
@@ -403,16 +403,6 @@
     smudge = git-lfs smudge -- %f
     process = git-lfs filter-process
     required = true
-
-[difftool "sourcetree"]
-    cmd = opendiff \"$LOCAL\" \"$REMOTE\"
-    path = 
-
-[mergetool "sourcetree"]
-    cmd = /Applications/Sourcetree.app/Contents/Resources/opendiff-w.sh \"$LOCAL\" \"$REMOTE\" -ancestor \"$BASE\" -merge \"$MERGED\"
-    trustExitCode = true
-  #cmd = /Applications/Sourcetree.app/Contents/Resources/opendiff-w.sh \"$LOCAL\" \"$REMOTE\" -ancestor \"$BASE\" -merge \"$MERGED\"
-  #trustExitCode = true
 
 [url "https://github.com/"]
     insteadOf = gh:
@@ -442,7 +432,7 @@
     postBuffer = 1048576000
 
 [commit]
-    template = ~/luis7238/.stCommitMsg
+    template = ~/.git.d/stCommitMsg
 
 [pack]
     windowMemory = 256m
