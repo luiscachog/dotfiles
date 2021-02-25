@@ -39,7 +39,7 @@ alias .......='cd ../../../../../../'                      # Go back 6 directory
 
 alias c='clear'
 alias h='history'
-alias clear='[ $[$RANDOM % 10] = 0 ] && timeout 3 cmatrix; clear || clear'
+alias clear='[ $[$RANDOM % 10] = 0 ] && timeout 5 cmatrix -Ba -u 2; clear || clear'
 alias cp='cp -i'
 alias dmesg='dmesg -HL'
 alias grep='grep --color=auto'
@@ -52,6 +52,7 @@ alias rd='rmdir'
 alias lsalias='less ~/.zsh_aliases'
 alias psa='ps ax |grep '
 alias pem="openssl x509 -noout -text -in "
+alias b="buku"
 complete -cf {sudo,man,which}
 
 # http://zsh.sourceforge.net/Doc/Release/Options.html#index-RMSTARSILENT
@@ -59,7 +60,7 @@ setopt rmstarsilent
 
 alias uupdate='sudo aptitude update && sudo aptitude upgrade -y'
 alias mountnas01='sudo mount -t nfs nas01:/mnt/HD/HD_a2/LuisCacho /mnt'
-alias weather='curl -4 wttr.in'
+alias weather='curl -s "wttr.in/{San Antonio,CDMX,Santo Domingo Zanatepec }?m&format=v2"'
 alias week='date +%V'                                      # Get week number
 alias timer='echo "Timer started. Stop with Ctrl-D." && date && time cat && date'  # Stopwatch
 alias copys="tr -d '\n' | pbcopy"                          # Trim new lines and copy to clipboard
