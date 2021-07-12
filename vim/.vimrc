@@ -1,4 +1,3 @@
-"-----------------------------------------"
 " Source: http://github.com/timss/vimconf "
 "-----------------------------------------"
 
@@ -64,7 +63,7 @@
         " fzf
         Plugin 'junegunn/fzf'
         Plugin 'junegunn/fzf.vim'
-        
+
         " Autoclose (, " etc
         Plugin 'somini/vim-autoclose'
 
@@ -81,7 +80,8 @@
         Plugin 'MarcWeber/vim-addon-mw-utils'
         Plugin 'tomtom/tlib_vim'
         Plugin 'honza/vim-snippets'
-        Plugin 'garbas/vim-snipmate'
+        "Plugin 'garbas/vim-snipmate'
+        let g:snipMate = { 'snippet_version' : 1 }
 
         " A fancy start screen, shows MRU etc.
         Plugin 'mhinz/vim-startify'
@@ -106,7 +106,9 @@
         Plugin 'vim-airline/vim-airline'
         Plugin 'vim-airline/vim-airline-themes'
 
-        Plugin 'dracula/vim', { 'name': 'dracula' }
+        "Plugin 'dracula/vim', { 'name': '' }
+
+        "Plugin 'dracula', {'pinned': '1'}
     """ }}}
     """ Finish Vundle stuff {{{
         call vundle#end()
@@ -126,9 +128,10 @@
 """ User interface {{{
     """ Syntax highlighting {{{
         filetype plugin indent on                   " detect file plugin+indent
+        packadd! dracula_pro
         syntax on                                   " syntax highlighting
         set background=dark                         " we're using a dark bg
-        colorscheme dracula                         " colorscheme from plugin
+        colorscheme dracula_pro                     " colorscheme from plugin
         let g:jellybeans_use_lowcolor_black = 0
         """ Force behavior and filetypes, and by extension highlighting {{{
             augroup FileTypeRules
@@ -539,7 +542,7 @@
     """ }}}
     """ Lightline {{{
         let g:lightline = {
-            \ 'colorscheme': 'dracula',
+            \ 'colorscheme': 'dracula_pro',
             \ 'active': {
             \     'left': [
             \         ['mode', 'paste'],
