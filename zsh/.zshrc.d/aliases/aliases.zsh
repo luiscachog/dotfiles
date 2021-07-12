@@ -15,13 +15,14 @@ alias preview="fzf --height 40% --layout reverse --info inline --border --previe
 ##### Commands #####
 alias reload!='source ~/.zshrc'
 #alias ls='exa'
-alias ll='ls -lFh'
-alias la='ls -lAFh'
-alias l='ls -ClFh'
-alias ltr='ls -altrFh'
+alias ls='ls --group-directories-first --color=auto'
+alias ll='ls --group-directories-first --color=auto -lFh'
+alias la='ls --group-directories-first --color=auto -lAFh'
+alias l='ls --group-directories-first --color=auto -ClFh'
+alias ltr='ls --group-directories-first --color=auto -altrFh'
 alias lsd="ls -lFh | grep --color=never ^d"
-
-alias mkdir='mkdir -p'
+alias tre="tree -aC -I '.git' --dirsfirst "$@" | less -FRNX"
+alias less='less --LONG-PROMPT --tabs=4'
 
 alias ~="cd ~"                                             # `cd` is probably faster to type though
 alias -- -="cd -"
@@ -49,7 +50,7 @@ alias ln='ln -i'
 alias mkdir='mkdir -p'
 alias mv='mv -i'
 alias rd='rmdir'
-alias lsalias='less ~/.zsh_aliases'
+alias lsalias='less $HOME/.zshrc.d/aliases/*.zsh'
 alias psa='ps ax |grep '
 alias pem="openssl x509 -noout -text -in "
 alias b="buku"
@@ -545,7 +546,7 @@ rand-simple()   {
 }
 
 # gitignore.io
-function gi() { 
+function gi() {
 	curl -sLw "\n" https://www.gitignore.io/api/$@
 }
 
@@ -559,3 +560,170 @@ _gitignoreio () {
 }
 
 compdef _gitignoreio gi
+
+
+##### TO test
+
+# Show all the names (CNs and SANs) listed in the SSL certificate
+# for a given domain
+getcertnames() {
+	if [ -z "${1}" ]; then
+		echo "ERROR: No domain specified."
+		return 1
+	fi
+
+	local domain="${1}"
+	echo "Testing ${domain}…"
+	echo ""; # newline
+
+	local tmp
+	tmp=$(echo -e "GET / HTTP/1.0\\nEOT" \
+		| openssl s_client -servername "${domain}" -connect "${domain}:443" 2>&1)
+
+	if [[ "${tmp}" = *"-----BEGIN CERTIFICATE-----"* ]]; then
+		local certText
+		certText=$(echo "${tmp}" \
+			| openssl x509 -text -certopt "no_header, no_serial, no_version, \
+			no_signame, no_validity, no_issuer, no_pubkey, no_sigdump, no_aux")
+		echo "Common Name:"
+		echo ""; # newline
+		echo "${certText}" | grep "Subject:" | sed -e "s/^.*CN=//"
+		echo ""; # newline
+		echo "Subject Alternative Name(s):"
+		echo ""; # newline
+		echo "${certText}" | grep -A 1 "Subject Alternative Name:" \
+			| sed -e "2s/DNS://g" -e "s/ //g" | tr "," "\\n" | tail -n +2
+		return 0
+	else
+		echo "ERROR: Certificate not found."
+		return 1
+	fi
+}
+
+# check if url is up
+url_isup() {
+	local uri=$1
+
+	if curl -s --head  --request GET "$uri" | grep "200 OK" > /dev/null ; then
+		notify-send --urgency=critical "$uri is down"
+	else
+		notify-send --urgency=low "$uri is up"
+	fi
+}
+
+# Run 'dig' and display the most useful info
+digga() {
+  dig +nocmd "$1" any +multiline +noall +answer
+}
+
+# Show all the names (CNs and SANs) listed in the SSL certificate
+# for a given domain
+
+getcerts() {
+if [ -z "${1}"  ]; then
+echo "ERROR: No domain specified."
+                return 1
+            fi
+
+        local domain="${1}"
+    echo "Testing ${domain}…"
+echo                    ""; # newline
+
+local tmp
+tmp=$(echo -e "GET / HTTP/1.0\\nEOT" \
+    | openssl s_client -showcerts -servername "${domain}" -connect "${domain}:443" 2>&1)
+
+    if [[ "${tmp}" = *"-----BEGIN CERTIFICATE-----"*  ]]; then
+    local certText
+certText=$(echo "${tmp}" \
+    | openssl x509)
+echo "Certificate:"
+echo ""; # newline
+echo "${certText}"
+return 0
+else
+    echo "ERROR: Certificate not found."
+    return 1
+fi
+}
+
+
+gitsetoriginnopush() {
+	git remote set-url --push origin no_push
+}
+
+gitremovesubmodule(){
+    if [ -z "${1}"   ]; then
+        echo "ERROR: No submodule specified."
+        echo "Available submodules are:"
+        git submodule status | awk '{print $2}'
+        return 1
+    fi
+
+    echo -e "Before: \n $(git submodule status | awk '{print $2}') \n"
+    git submodule deinit -f -- "${1}"
+    rm -rf .git/modules/"${1}"
+    git rm -f "${1}"
+    # Note: a/submodule (no trailing slash)
+    echo -e "After: \n $(git submodule status | awk '{print $2}') \n"
+}
+
+# Login to Docker container
+docker-login(){
+  docker exec -ti "${1}" /bin/bash
+}
+
+# backup home directory to nas resource
+bknas(){
+  if $(df | grep -q /mnt/nas); then
+    echo "mounted"
+  else
+    echo "not mounted"
+    sudo mount -t nfs nas01.lan.luiscachog.io:/mnt/HD/HD_a2/LuisCacho /mnt/nas
+    echo "mounted NOW"
+  fi
+
+  sudo /usr/bin/rsync -artuv -l \
+    --exclude=.ansible/tmp \
+    --exclude=.cache \
+    --exclude=.cargo \
+    --exclude=.Private \
+    --exclude=Cache \
+    --exclude=cache \
+    --exclude=.node_modules_global \
+    --exclude=.npm \
+    --exclude=.vscode \
+    --exclude=.anaconda \
+    --exclude=.config/Station \
+    --exclude=.config/chromium \
+    --exclude=.local/share/Trash \
+    --exclude=.fontconfig \
+    --exclude=.config/Franz \
+    --exclude=.config/Code/CachedData \
+    --exclude=.var/app/org.gnome.FeedReader \
+    ~/ /mnt/nas/backup2018  | pv -les $(find ~ | wc -l)
+
+    # --exclude=.pyenv \
+    # --exclude=..virtualenvs \
+    #--exclude=Dropbox \
+}
+
+# Create a new directory and enter it
+mkd() {
+  mkdir -p "$@"
+  cd "$@" || exit
+}
+
+# Make a temporary directory and enter it
+tmpd() {
+  local dir
+  if [ $# -eq 0 ]; then
+    dir=$(mktemp -d)
+  else
+    dir=$(mktemp -d -t "${1}.XXXXXXXXXX")
+  fi
+  cd "$dir" || exit
+}
+
+function _chpwd_hook_ls() ls  # automatically run `ls` after every `cd`
+add-zsh-hook chpwd _chpwd_hook_ls

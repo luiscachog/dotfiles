@@ -39,7 +39,7 @@ fi
 bindkey "^a" beginning-of-line
 bindkey "^e" end-of-line
 bindkey "^f" forward-word
-bindkey "^b" backward-word                                                                                                                                                                                             
+bindkey "^b" backward-word
 bindkey "^k" kill-line
 bindkey "^d" delete-char
 bindkey "^y" accept-and-hold
@@ -48,7 +48,7 @@ bindkey "^u" backward-kill-line
 bindkey "^R" history-incremental-pattern-search-backward
 bindkey "^F" history-incremental-pattern-search-forward
 
-# Do not require a space when attempting to tab-complete.                                                                                                                                                              
+# Do not require a space when attempting to tab-complete.
 bindkey "^i" expand-or-complete-prefix
 
 # Fixes for alt-backspace and arrows keys
@@ -57,5 +57,3 @@ bindkey "^[[1;5C" forward-word
 bindkey "^[[1;5D" backward-word
 #bindkey "^[[C" forward-word
 #bindkey "^[[D" backward-word
-
-

@@ -2,8 +2,8 @@
 # Exlude commands on history
 HISTORY_IGNORE="(ls|cd|pwd|exit|date|* --help)"
 # Keep 200000 lines of history within the shell and save it to ~/.zsh_history:
-HISTSIZE=200000
-SAVEHIST=400000
+HISTSIZE=2000000
+SAVEHIST=4000000
 HISTFILE=~/.zsh_history
 
 # Command execution time stamp shown in the history command output.
@@ -14,6 +14,7 @@ setopt autocd                   # Allow changing directories without `cd`
 setopt append_history           # Dont overwrite history
 setopt extended_history         # Also record time and duration of commands.
 setopt share_history            # Share history between multiple shells
+setopt hist_verify              # If a cmd triggers history expansion, show it instead of running it
 setopt hist_expire_dups_first   # Clear duplicates when trimming internal hist.
 setopt hist_find_no_dups        # Dont display duplicates during searches.
 setopt hist_ignore_dups         # Ignore consecutive duplicates.

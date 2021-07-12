@@ -1,4 +1,4 @@
-neofetch --ascii_distro redhat
+# neofetch --ascii_distro redhat
 # Enable Powerlevel10k instant prompt. Should stay close to the top of ~/.zshrc.
 # Initialization code that may require console input (password prompts, [y/n]
 # confirmations, etc.) must go above this block, everything else may go below.
@@ -10,6 +10,7 @@ fi
 # export PATH=$HOME/bin:/usr/local/bin:$PATH
 export GOPATH="$HOME/go"
 export PATH="/usr/local/opt/python/libexec/bin:/usr/local/sbin:/usr/local/bin:/usr/local/opt/ncurses/bin:/usr/local/opt/ruby/bin:$GOPATH/bin:$PATH"
+export PATH="$HOME/bin/:$PATH"
 
 # Path to my own config files.
 export ZSH_CUSTOM="$HOME/.zshrc.d"
@@ -47,7 +48,7 @@ ZSH_THEME="powerlevel10k/powerlevel10k"
 # export UPDATE_ZSH_DAYS=13
 
 # Uncomment the following line if pasting URLs and other text is messed up.
-# DISABLE_MAGIC_FUNCTIONS=true
+DISABLE_MAGIC_FUNCTIONS=true
 
 # Uncomment the following line to disable colors in ls.
 # DISABLE_LS_COLORS="true"
@@ -137,14 +138,36 @@ if [ -d $ZSH_CUSTOM/plugins ]; then
   done
 fi
 
+# load all completion files from .zshrc.d/plugins directory
+if [ -d $ZSH_CUSTOM/completion ]; then
+  for file in $ZSH_CUSTOM/completion/*; do
+    source $file
+  done
+fi
+
+if [ $TILIX_ID  ] || [ $VTE_VERSION  ]; then
+    source /etc/profile.d/vte.sh
+fi
+
+if [ $commands[kubectl]  ]; then
+    source <(kubectl completion zsh)
+fi
+
+if [ $commands[minikube] ]; then
+    source <(minikube completion zsh)
+fi
+
 # To source virtualenvwrapper
 [[ ! -f /usr/local/bin/virtualenvwrapper.sh ]] || source /usr/local/bin/virtualenvwrapper.sh
 
 
 # Using pyenv
 if command -v pyenv 1>/dev/null 2>&1 ; then
+  export PYENV_ROOT="$HOME/.pyenv"
+  export PATH="$PYENV_ROOT/bin:$PATH"
+  eval "$(pyenv init --path)"
   eval "$(pyenv init -)"
-  export PATH=$(pyenv root)/bin:$PATH
+  # export PATH=$(pyenv root)/bin:$PATH
   export PYENV_VIRTUALENV_DISABLE_PROMPT=1
 fi
 
@@ -158,6 +181,9 @@ fi
 
 test -e "${HOME}/.iterm2_shell_integration.zsh" && source "${HOME}/.iterm2_shell_integration.zsh"
 
+
+
+
 #source $(dirname $(gem which colorls))/tab_complete.sh
 
 #eval "$(rbenv init -)"
@@ -167,3 +193,35 @@ test -e "${HOME}/.iterm2_shell_integration.zsh" && source "${HOME}/.iterm2_shell
 
 # To customize prompt, run `p10k configure` or edit ~/.p10k.zsh.
 [[ ! -f ~/.p10k.zsh ]] || source ~/.p10k.zsh
+
+# =============================================================================
+#                                 Completions
+# =============================================================================
+
+zstyle ':completion:*' rehash true
+#zstyle ':completion:*' verbose yes
+#zstyle ':completion:*:descriptions' format '%B%d%b'
+#zstyle ':completion:*:messages' format '%d'
+#zstyle ':completion:*:warnings' format 'No matches for: %d'
+#zstyle ':completion:*' group-name ''
+
+# case-insensitive (all), partial-word and then substring completion
+zstyle ":completion:*" matcher-list \
+  "m:{a-zA-Z}={A-Za-z}" \
+  "r:|[._-]=* r:|=*" \
+  "l:|=* r:|=*"
+
+zstyle ":completion:*:default" list-colors ${(s.:.)LS_COLORS}
+
+# Use modern completion system
+autoload -Uz compinit && compinit
+autoload -U +X bashcompinit && bashcompinit
+
+export TERM="xterm-256color"
+tmux-new() {
+  if [[ -n $TMUX ]]; then
+    tmux switch-client -t "$(TMUX= tmux -S "${TMUX%,*,*}" new-session -dP "$@")"
+  else
+    tmux new-session "$@"
+  fi
+}
