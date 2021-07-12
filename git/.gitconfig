@@ -1,6 +1,7 @@
 [user]
     email = luiscachog@gmail.com
     name = Luis Cacho
+    signingKey = null
 
 [includeIf "gitdir:~/workspace/repos/rh/"]
     path = ~/.git.d/gitconfig-rh
@@ -433,7 +434,12 @@
 
 [commit]
     template = ~/.git.d/stCommitMsg
+    gpgSign = false
 
 [pack]
     windowMemory = 256m
     packSizeLimit = 256m
+[gpg]
+    program = null
+[tag]
+    forceSignAnnotated = false
