@@ -1,0 +1,33 @@
+# RedHat
+Host *.redhat.com
+  GSSAPIAuthentication yes
+  ForwardAgent no
+  ForwardX11 no
+  ForwardX11Trusted no
+  GSSAPIDelegateCredentials no
+
+# GitHub 
+Host github.com
+    HostName github.com
+    User luiscachog
+    PreferredAuthentications publickey
+    IdentityFile ~/.ssh/ssh_keys/github.com_rsa
+    IdentitiesOnly yes
+    ProxyCommand none
+    ServerAliveInterval 600
+    ServerAliveCountMax 5
+    TCPKeepAlive yes
+    #IPQoS=throughput
+
+# GitLab
+Host gitlab.consulting.redhat.com
+    HostName gitlab.consulting.redhat.com
+    User lcacho
+    PreferredAuthentications publickey
+    IdentityFile ~/.ssh/ssh_keys/rh_gitlab_rsa
+    IdentitiesOnly yes
+    ProxyCommand none
+    ServerAliveInterval 600
+    ServerAliveCountMax 5
+    TCPKeepAlive yes
+    #IPQoS=throughput
